@@ -16,11 +16,10 @@ def procrustes_analysis(reference: OrdinationResults, other: OrdinationResults,
                         dimensions: int = 5) -> (OrdinationResults,
                                                  OrdinationResults):
 
-    if reference.samples.shape != other.samples.shape:
-        raise ValueError('The matrices cannot be fitted unless they have the '
-                         'same dimensions')
-
     if reference.samples.shape[1] < dimensions:
+        raise ValueError('Cannot fit fewer dimensions than available')
+    
+    if other.samples.shape[1] < dimensions: 
         raise ValueError('Cannot fit fewer dimensions than available')
 
     # fail if there are any elements in the symmetric difference
